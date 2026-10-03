@@ -1,0 +1,14 @@
+{
+  "extraKnownMarketplaces": {
+    "dotnet-claude-kit": {
+      "source": {
+        "source": "github",
+        "repo": "codewithmukesh/dotnet-claude-kit"
+      }
+    }
+  },
+  "theme": "dark",
+  "enabledPlugins": {
+    "dotnet-claude-kit@dotnet-claude-kit": true
+  }
+}

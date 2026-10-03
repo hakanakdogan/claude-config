@@ -1,0 +1,10 @@
+# Whitelist: ignore everything, track only portable config.
+/*
+!/.gitignore
+!/.gitattributes
+!/settings.json
+!/agents/
+!/commands/
+!/skills/
+# claude.ai-managed skills are synced by Anthropic, not by this repo
+/skills/synced/
