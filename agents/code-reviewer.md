@@ -9,7 +9,9 @@ Review the uncommitted changes (`git status`, `git diff`).
 Evaluate only changed code; do not critique untouched legacy code.
 
 Check:
-- Compliance with CLAUDE.md and existing project patterns
+- Every rule in the root CLAUDE.md and in the CLAUDE.md of each touched module/folder,
+  applied to the diff (e.g. required doc updates, schema/contract preservation, mandated base classes)
+- Consistency with existing project patterns
 - Duplication: was an existing helper or function reimplemented?
 - Error handling and edge cases
 - Security: authorization checks, injection, sensitive data leaks

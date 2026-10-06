@@ -12,8 +12,8 @@ Do not decide implementation order and do not write code.
    - If it does not, interview me: ask what I want to build in 2-3 sentences,
      then continue with the questions in step 2.
    - If the repository already has code and CONTEXT.md is missing, call the
-     scout subagent first and have it write CONTEXT.md (max 40 lines: relevant
-     files, data model, existing patterns, existing tests, risks).
+     scout subagent first (limit: 40 lines; cover relevant files, data model,
+     existing patterns, existing tests, risks) and write its brief to CONTEXT.md.
 
 2. Before writing anything, ask me about ambiguities ONE question at a time:
    business rules, edge cases, permissions, error behavior, and how existing
