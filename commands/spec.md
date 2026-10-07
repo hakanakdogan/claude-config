@@ -8,21 +8,35 @@ You are the planner. Your output is a spec: WHAT the system must do and WHY.
 Do not decide implementation order and do not write code.
 
 1. Gather input:
-   - If ANALYSIS.md exists in the working folder, read it.
-   - If it does not, interview me: ask what I want to build in 2-3 sentences,
-     then continue with the questions in step 2.
-   - If the repository already has code and CONTEXT.md is missing, call the
-     scout subagent first (limit: 40 lines; cover relevant files, data model,
-     existing patterns, existing tests, risks) and write its brief to CONTEXT.md.
+   - If ANALYSIS.md is missing but a .docx or .pdf file exists in the
+     working folder, convert it first: use pandoc if available
+     (`pandoc <file> -t gfm --extract-media=. --track-changes=all -o ANALYSIS.md`),
+     otherwise convert it with Python. Preserve headings, tables, and lists.
+     Show me any part that did not convert cleanly before continuing.
+   - If ANALYSIS.md exists, read it. If there is no analysis at all,
+     interview me: ask what I want to build in 2-3 sentences, then
+     continue with step 2.
+   - If the parent folder contains EPIC.md, read it. For every prerequisite
+     feature listed there, read its SPEC.md and CONTRACT.md. Reference their
+     endpoints and data models instead of redefining them.
+   - If the repository has code and CONTEXT.md is missing, call the scout
+     subagent with this feature's scope and the CONTEXT.md path.
 
 2. Before writing anything, ask me about ambiguities ONE question at a time:
    business rules, edge cases, permissions, error behavior, and how existing
    behavior is affected. Stop asking when the remaining unknowns would not
    change the acceptance criteria.
 
-3. Scope check: if the input covers several independent modules, propose
-   splitting it into separate feature folders (one spec each) and wait for
-   my answer before continuing.
+3. Scope check: if the input covers several independent features, propose
+   splitting and wait for my answer. If I agree, do only this and stop:
+   - Write EPIC.md in the working folder: the features with one-line
+     summaries, the dependency graph (prerequisites and what can run in
+     parallel), and shared concepts.
+   - Create one subfolder per feature (fX-short-name/) with an ANALYSIS.md
+     containing only that feature's part of the analysis. Put content that
+     spans several features into EPIC.md.
+   - Suggest merging features too small to stand alone.
+   - Show the recommended order, then tell me to run /spec on the first one.
 
 4. Write SPEC.md with these sections, per feature:
    - Goal

@@ -1,26 +1,37 @@
 ---
-description: Run the next TODO task of a feature's TASKS.md through scout → coder → judge → code-reviewer, then commit
+description: Build a feature's tasks up to the next checkpoint, then review the group
 argument-hint: <feature-folder>
+model: sonnet
 ---
 Working folder: docs/features/$ARGUMENTS/
-You are the orchestrator. You delegate every piece of work to a subagent and only manage the loop.
+You are the orchestrator. Never write code and never read source files
+yourself; only read TASKS.md, PROGRESS.md, and agent results.
 
-1. Pick the first task in TASKS.md whose status is TODO and whose dependencies are all DONE.
-   Create PROGRESS.md in the working folder if it does not exist.
-2. Call the scout subagent with this task's section only.
-3. Call the coder for the task's layer tag, with the task section + scout brief (never the whole SPEC):
-   - [BE] → be-coder
-   - [FE] → fe-coder
-   Pass the CONTRACT.md endpoint too when the task names one.
-4. Call the judge subagent with the task's acceptance criteria.
-   FAIL → give the judge's fix list to the same coder, then run step 4 again.
-5. Call the code-reviewer subagent on the uncommitted changes.
-   CHANGES_REQUIRED → give its CRITICAL items to the same coder, then go back to step 4.
-6. Retry limit: 3 rounds across steps 4–5. On the 3rd failure, mark the task BLOCKED,
-   stop, and tell me why.
-7. Done when judge says PASS and code-reviewer says APPROVE:
-   - mark the task DONE in TASKS.md,
-   - add one PROGRESS.md row: task, status, attempts, summary of at most 200 characters
-     (details belong in the commit message or the module's docs),
-   - commit with the message "T0X: <task title>".
-8. Report to me in 3-4 lines: what was done, how many attempts, open MAJOR/MINOR review items, the next task.
+Repeat steps 1-3 until you complete a task marked "Checkpoint: yes"
+or no TODO task is left. Then run steps 4-5 and stop.
+
+1. Resume check: if a task is IN_PROGRESS and `git status` shows
+   uncommitted changes, send it back to its coder with "continue and
+   verify". Otherwise pick the first TODO task whose dependencies are
+   DONE and set it to IN_PROGRESS. Create PROGRESS.md if missing.
+
+2. Call be-coder for [BE] tasks, fe-coder for [FE] tasks. Pass only:
+   the task section, the path to CONTEXT.md, and the relevant part of
+   CONTRACT.md. Never pass SPEC.md.
+
+3. Coder result:
+   - DONE: mark the task DONE, add one line to PROGRESS.md, commit as
+     "T0X: <title>".
+   - FAILED or CONTRACT_CHANGE: mark BLOCKED, stop, and tell me why.
+
+4. Checkpoint review: call reviewer with the commit range since the
+   last checkpoint (stored in PROGRESS.md; use the first task commit's
+   parent if none) and the task numbers in this group.
+   - CHANGES_REQUIRED: send all CRITICAL items to the relevant coder in
+     one call, commit the fixes, then run reviewer once more. If it still
+     fails, stop and ask me.
+   - Append MAJOR and MINOR items to REVIEW_NOTES.md.
+   - Record the checkpoint commit hash in PROGRESS.md.
+
+5. Report in 3-4 lines: tasks done, review result, next task. Then stop
+   so I can /clear and continue.
