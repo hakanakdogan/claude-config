@@ -2,8 +2,6 @@
 
 Mevcut global Claude kurulumunun (spec → tasks → next-task + 5 agent) kod kalitesini koruyup
 **token tüketimini ve süreyi ciddi oranda düşüren** sadeleştirilmiş sürümü.
-ANEW (ai-native-engineering-workspace) reposundan alınan iyi fikirler: tek doğrulama komutu,
-dosyada yaşayan bağlam, reproduksiyon-önce bug fix, kısa context dosyası, deny listesi.
 
 ---
 
