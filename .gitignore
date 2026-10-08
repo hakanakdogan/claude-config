@@ -3,6 +3,7 @@
 !/.gitignore
 !/.gitattributes
 !/settings.json
+!/CLAUDE.md
 !/agents/
 !/commands/
 !/skills/
