@@ -7,8 +7,8 @@ Working folder: docs/features/<first word of $ARGUMENTS>/  (rest of $ARGUMENTS =
 You are the planner. Output: ONE file, PLAN.md. No code.
 
 1. Input (read each source once):
-   - ANALYSIS.md if present. If only a .docx/.pdf exists, convert it once
-     (`pandoc <file> -t gfm -o ANALYSIS.md`, else Python) and continue.
+   - ANALYSIS.md if present. Never read or convert .pdf/.docx files; if only those
+     exist, stop and ask me to provide ANALYSIS.md.
    - No analysis: use the brief from $ARGUMENTS.
    - Parent EPIC.md, if present: read it and only the "Contract" sections of
      prerequisite features' PLAN.md. Reference them, do not redefine.
