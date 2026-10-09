@@ -1,15 +1,16 @@
 {
-    "enabledPlugins":  {
-                           "dotnet-claude-kit@dotnet-claude-kit":  false,
-                           "frontend-design@claude-plugins-official":  true
-                       },
-    "extraKnownMarketplaces":  {
-                                   "dotnet-claude-kit":  {
-                                                             "source":  {
-                                                                            "source":  "github",
-                                                                            "repo":  "codewithmukesh/dotnet-claude-kit"
-                                                                        }
-                                                         }
-                               },
-    "theme":  "dark"
+  "model": "sonnet",
+  "enabledPlugins": {
+    "dotnet-claude-kit@dotnet-claude-kit": false,
+    "frontend-design@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "dotnet-claude-kit": {
+      "source": {
+        "source": "github",
+        "repo": "codewithmukesh/dotnet-claude-kit"
+      }
+    }
+  },
+  "theme": "dark"
 }
